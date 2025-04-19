@@ -7,6 +7,8 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\PasswordResetLinkController;
+use App\Http\Controllers\ArtifactController;
+use App\Http\Controllers\EventController;
 
 /*
 -------------------------------------------------------------------------------------------------------------------------
@@ -31,3 +33,31 @@ Route::post('/email/resend', [EmailVerificationController::class, 'resendVerific
 
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'forgotPassword'])->middleware('api');
 Route::post('/reset-password', [NewPasswordController::class, 'resetPassword'])->middleware('api')->name('password.reset');
+
+
+
+/*
+-------------------------------------------------------------------------------------------------------------------------
+Frontend
+-------------------------------------------------------------------------------------------------------------------------
+*/
+
+//Artifacts Routes
+Route::prefix('artifact')->group(function(){
+    Route::get('/all', [ArtifactController::class, 'index'])->name('artifact.index');
+    Route::get('/egypt', [ArtifactController::class, 'egyptArtifact'])->name('artifact.egypt');
+    Route::get('/outside', [ArtifactController::class, 'outsideArtifact'])->name('artifact.outside');
+    Route::post('/store', [ArtifactController::class, 'store'])->name('artifact.store');
+    Route::get('/show/{id}', [ArtifactController::class, 'show'])->name('artifact.show');
+    Route::post('/update/{id}', [ArtifactController::class, 'update'])->name('artifact.update');
+    Route::get('/delete/{id}', [ArtifactController::class, 'destroy'])->name('artifact.delete');
+});
+
+//Events Routes
+Route::prefix('event')->group(function(){
+    Route::get('/all', [EventController::class, 'index'])->name('event.index');
+    Route::post('/store', [EventController::class, 'store'])->name('event.store');
+    Route::get('/show/{id}', [EventController::class, 'show'])->name('event.show');
+    Route::post('/update/{id}', [EventController::class, 'update'])->name('event.update');
+    Route::get('/delete/{id}', [EventController::class, 'destroy'])->name('event.delete');
+});
