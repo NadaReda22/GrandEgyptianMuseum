@@ -3,12 +3,14 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ArtifactController;
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\PasswordResetLinkController;
-use App\Http\Controllers\ArtifactController;
-use App\Http\Controllers\EventController;
+use App\Http\Controllers\Auth\EmailVerificationController;
 
 /*
 -------------------------------------------------------------------------------------------------------------------------
@@ -61,3 +63,13 @@ Route::prefix('event')->group(function(){
     Route::post('/update/{id}', [EventController::class, 'update'])->name('event.update');
     Route::get('/delete/{id}', [EventController::class, 'destroy'])->name('event.delete');
 });
+
+
+//Booking & Payment 
+Route::post('/booking', [BookingController::class, 'book']);
+
+// Create payment order and get iframe URL
+Route::post('/payment/create-order', [PaymentController::class, 'createOrder']);
+
+// Webhook endpoint to receive Paymob payment status updates
+Route::post('/payment/webhook', [PaymentController::class, 'handlePaymobWebhook']);

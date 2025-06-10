@@ -35,4 +35,15 @@ return [
         ],
     ],
 
+// config/services.php
+
+'paymob' => [
+    'api_key' => env('PAYMOB_API_KEY'),
+    'integration_id' => env('PAYMOB_CARD_INTEGRATION_ID'), // <-- here
+    'iframe_id' => env('PAYMOB_IFRAME_ID'),
+],
+
+
+
+
 ];
