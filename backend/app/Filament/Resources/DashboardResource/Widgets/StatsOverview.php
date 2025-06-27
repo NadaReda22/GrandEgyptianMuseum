@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Widgets;
+namespace App\Filament\Resources\DashboardResource\Widgets;
 
 use App\Models\User;
 use App\Models\Booking;

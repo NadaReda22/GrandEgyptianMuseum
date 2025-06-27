@@ -47,6 +47,13 @@ Route::post('/forgot-password', [PasswordResetLinkController::class, 'forgotPass
 Route::post('/reset-password', [NewPasswordController::class, 'resetPassword'])->middleware('api')->name('password.reset');
 
 
+// Route::get('/flutter-redirect', function (Illuminate\Http\Request $request) {
+//     $email = $request->query('email');
+//     $code = $request->query('code');
+
+//     // Redirect to the Flutter deep link
+//     return redirect("gem://reset-password?email={$email}&code={$code}");
+// });
 
 /*
 -------------------------------------------------------------------------------------------------------------------------

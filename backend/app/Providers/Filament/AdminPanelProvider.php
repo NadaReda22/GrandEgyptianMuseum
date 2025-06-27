@@ -18,8 +18,8 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
-use App\Filament\Widgets\StatsOverview;
-use App\Filament\Widgets\PaidTicketsChart;
+use App\Filament\Resources\DashboardResource\Widgets\StatsOverview;
+use App\Filament\Resources\DashboardResource\Widgets\PaidTicketsChart;
 
 class AdminPanelProvider extends PanelProvider
 {
