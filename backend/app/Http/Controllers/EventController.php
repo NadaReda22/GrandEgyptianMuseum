@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Event;
 use Carbon\Carbon;
+use App\Models\Event;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
 {
@@ -53,11 +54,21 @@ class EventController extends Controller
    
    $event = new Event($validated);
 
-      if ($request->hasFile('image')) {
-          $fileName = time() . '.' . $request->image->extension();
-          $request->image->move(public_path('uploads/events'), $fileName);
-          $event->image = 'uploads/events/' . $fileName;
-      }
+         if ($request->hasFile('image')) {
+                $file = $request->file('image');
+
+                // Clean filename and make it unique
+                $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $extension = $file->getClientOriginalExtension();
+                $fileName = $originalName . '_' . time() . '.' . $extension;
+
+                // Store the file in storage/app/public/uploads/events
+                $file->storeAs('uploads/events', $fileName, 'public');
+
+                // Save the relative path for accessing via asset('storage/' . $event->image)
+                $event->image = 'uploads/events/' . $fileName;
+            }
+
 
       $event->save();
 
@@ -82,15 +93,28 @@ class EventController extends Controller
       ]);
 
       // Delete old image if new one uploaded
-      if ($request->hasFile('image')) {
-          if (!empty($event->image) && file_exists(public_path($event->image))) {
-              unlink(public_path($event->image));
-          }
+        //Handle image file
+              if ($request->hasFile('image')) {
+                // Delete old image if it exists
+                if (!empty($event->image) && Storage::disk('public')->exists($event->image)) {
+                    Storage::disk('public')->delete($event->image);
+                }
 
-          $fileName = time() . '.' . $request->image->extension();
-          $request->image->move(public_path('uploads/events'), $fileName);
-          $validated['image'] = 'uploads/events/' . $fileName;
-      }
+                // Get uploaded file
+                $file = $request->file('image');
+
+                // Clean filename and make it unique
+                $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $extension = $file->getClientOriginalExtension();
+                $fileName = $originalName . '_' . time() . '.' . $extension;
+
+                // Store file using the public disk (in storage/app/public/uploads/events)
+                $file->storeAs('uploads/events', $fileName, 'public');
+
+                // Save the relative path to the database
+                $validatedData['image'] = 'uploads/events/' . $fileName;
+            }
+            
 
       $event->update($validated);
 

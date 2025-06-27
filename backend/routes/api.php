@@ -28,8 +28,18 @@ Route::middleware('auth:sanctum')->group(function()
 
 // Email Verification
 
-Route::post('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verifyEmail'])->name('verification.verify');
-Route::post('/email/resend', [EmailVerificationController::class, 'resendVerificationEmail'])->middleware('auth:sanctum');
+// Route::post('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verifyEmail'])->name('verification.verify');
+// Route::post('/email/resend', [EmailVerificationController::class, 'resendVerificationEmail'])->middleware('auth:sanctum');
+
+Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verifyEmail'])
+    ->middleware(['signed']) // This is important for URL signature validation
+    ->name('verification.verify');
+
+Route::post('/email/resend', [EmailVerificationController::class, 'resendVerificationEmail'])
+    ->middleware(['auth:sanctum']);
+
+
+
 
 //Reset Password
 

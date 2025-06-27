@@ -77,4 +77,16 @@ return [
         public_path('storage') => storage_path('app/public'),
     ],
 
+ /**
+  * Define a New Disk in config/filesystems.php
+  * This tells Laravel to store files inside public/uploads and to access them via URL /uploads.
+  */
+//     'public_uploads' => [
+//     'driver' => 'local',
+//     'root' => public_path('uploads'),
+//     'url' => env('APP_URL') . '/uploads',
+//     'visibility' => 'public',
+// ],
+
+
 ];

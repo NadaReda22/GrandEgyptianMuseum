@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Artifact;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ArtifactController extends Controller
 {
@@ -72,12 +73,25 @@ class ArtifactController extends Controller
                 $artifact = new Artifact($validatedData);
 
                 //Handle image file
-                if($request->hasFile('image'))
-                {
-                    $fileName=time() . '.' . $request->image->extension();
-                    $request->image->move(public_path('uploads/artifacts/'),$fileName);
-                    $artifact->image='uploads/artifacts/' . $fileName;
-                }
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+
+                // Clean filename and make it unique
+                $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $extension = $file->getClientOriginalExtension();
+                $fileName = $originalName . '_' . time() . '.' . $extension;
+
+                // Store the file in storage/app/public/uploads/artifacts
+                $file->storeAs('uploads/artifacts', $fileName, 'public');
+
+                // Save the relative path for accessing via asset('storage/' . $artifact->image)
+                $artifact->image = 'uploads/artifacts/' . $fileName;
+            }
+
+// if ($request->hasFile('image')) {
+//     $path = $request->file('image')->store('artifacts', 'public');
+//     $artifact->image = 'storage/' . $path; // <- Important!
+// }
 
                 // else
                 // {
@@ -95,7 +109,7 @@ class ArtifactController extends Controller
 
 
 
-          //store  Artifacts 
+          //Update  Artifacts 
 
           public function update(Request $request ,$id)
           {
@@ -113,18 +127,27 @@ class ArtifactController extends Controller
                 //   $artifact=Artifact::update($validatedData);
   
                   //Handle image file
-                  if($request->hasFile('image'))
-                  {           
-                    //Delete Old Image
-                    if(!empty($artifact->image && file_exists(public_path($artifact->image))))
-                    {
-                      unlink(public_path($artifact->image));
-                    }
-                      $fileName=time() . '.' . $request->image->extension();
-                      $request->image->move(public_path('uploads/artifacts/'),$fileName);
-                      $validatedData['image']='uploads/artifacts/' . $fileName;
-                  }
-  
+              if ($request->hasFile('image')) {
+                // Delete old image if it exists
+                if (!empty($artifact->image) && Storage::disk('public')->exists($artifact->image)) {
+                    Storage::disk('public')->delete($artifact->image);
+                }
+
+                // Get uploaded file
+                $file = $request->file('image');
+
+                // Clean filename and make it unique
+                $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $extension = $file->getClientOriginalExtension();
+                $fileName = $originalName . '_' . time() . '.' . $extension;
+
+                // Store file using the public disk (in storage/app/public/uploads/artifacts)
+                $file->storeAs('uploads/artifacts', $fileName, 'public');
+
+                // Save the relative path to the database
+                $validatedData['image'] = 'uploads/artifacts/' . $fileName;
+            }
+            
                    $artifact->update($validatedData);
       
               return response()->json([

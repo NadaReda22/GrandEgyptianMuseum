@@ -10,7 +10,7 @@ class Booking extends Model
        protected $guarded=[];
 
 
-       public function Event()
+       public function event()
        {
         return $this->belongsTo(Event::class);
        }

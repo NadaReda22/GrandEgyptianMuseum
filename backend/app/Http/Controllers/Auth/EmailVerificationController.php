@@ -24,10 +24,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
     
             $user->markEmailAsVerified();
     
-            return response()->json([
-                'message' => 'Email verified successfully.',
-                'user' => $user,
-            ], 200);
+           return view('auth.email-verified');
         }
 
 
