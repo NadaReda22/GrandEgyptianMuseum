@@ -97,9 +97,9 @@ A centralized system to manage the museum's vast collection.
 ```bash
 git clone https://github.com/NadaReda22/GrandEgyptianMuseum.git
 cd backend
-
-Install Dependencies
 ```
+Install Dependencies
+
 
 ```bash
 composer install
@@ -113,6 +113,7 @@ npm install
 ```bash
 cp .env.example .env
 php artisan key:generate
+```
 
 Configure your .env file with your Database and Paymob credentials.
 
