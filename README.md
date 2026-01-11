@@ -132,6 +132,6 @@ If you discover a security vulnerability within this project, please send an e-m
 
 👨‍💻 Author
 
-Nada Reda Backend Developer | Problem Setter This project was submitted as a Graduation Project (2024/2025)
+Nada Reda Backend Developer | Problem Solving |  This project was submitted as a Graduation Project (2024/2025)
 
-[LinkedIn](https://www.linkedin.com/in/nada-reda22) | [Email](mailto:nadoarmando22@gmail.com) | [Youtube]()
+[LinkedIn](https://www.linkedin.com/in/nada-reda22) | [Email](mailto:nadoarmando22@gmail.com) | [Youtube](https://www.youtube.com/watch?v=zIOJBvSx5Jc)
