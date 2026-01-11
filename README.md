@@ -67,37 +67,52 @@ A centralized system to manage the museum's vast collection.
 
 ## 📸 Screenshots
 
+
+
 ### Admin Dashboard (Filament)
 > *Manage Artifacts, Events, and Payments seamlessly.*
-`![Admin Dashboard](./screenshots/dashboard.png)`
+
+<img src="./artifacts/Screenshot%20(357).png" width="400" height="400" alt="Admin Dashboard"> 
+
 
 ### 3D Artifact Viewer
 > *Interactive 3D models of real museum artifacts.*
-`![3D Viewer](./screenshots/3d-model.png)`
+
+<img src="./artifacts/Screenshot%20(356).png" width="300" height="300" alt="3D Viewer">
+<img src="./artifacts/Screenshot%20(346).png" width="300" height="300" alt="3D Viewer">
+<img src="./artifacts/Screenshot%20(355).png" width="400" height="400" alt="3D Viewer">
+
+### Other features from the GEM platform 
+
+<img src="./artifacts/Screenshot%20(347).png" width="400" height="400" alt="3D Viewer">
+<img src="./artifacts/Screenshot%20(353).png" width="400" height="400" alt="3D Viewer">
+<img src="./artifacts/Screenshot%20(354).png" width="400" height="400" alt="3D Viewer">
+<img src="./artifacts/Screenshot%20(352).png" width="400" height="400" alt="3D Viewer">
 
 ---
 
-## ⚙️ Installation & Setup
+### ⚙️ Installation & Setup
 
 1. **Clone the repository**
-   ```bash
-   git clone [https://github.com/yourusername/gem-backend.git](https://github.com/yourusername/gem-backend.git)
-   cd gem-backend
+```bash
+git clone https://github.com/NadaReda22/GrandEgyptianMuseum.git
+cd backend
 
-    Install Dependencies
-    Bash
+Install Dependencies
+```
 
+```bash
 composer install
 npm install
-
+```
 
 
 ### Environment Setup
 
 1. **Setup Environment Variables**
-   ```bash
-   cp .env.example .env
-   php artisan key:generate
+```bash
+cp .env.example .env
+php artisan key:generate
 
 Configure your .env file with your Database and Paymob credentials.
 
@@ -119,4 +134,4 @@ If you discover a security vulnerability within this project, please send an e-m
 
 Nada Reda Backend Developer | Problem Setter This project was submitted as a Graduation Project (2024/2025)
 
-[LinkedIn](https://www.linkedin.com/in/nada-reda22) | [Email](mailto:nadoarmando22@gmail.com)
+[LinkedIn](https://www.linkedin.com/in/nada-reda22) | [Email](mailto:nadoarmando22@gmail.com) | [Youtube]()
